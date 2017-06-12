@@ -1,12 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSharpViaTest.Collections.Annotations;
 using Xunit;
 
 namespace CSharpViaTest.Collections._30_MapReducePractices
 {
-    [Medium]
+    /* 
+     * Description
+     * ===========
+     * 
+     * This test will try combine two hashtables. You can use LINQ method for help but
+     * you have to complete the test in just one statement.
+     * 
+     * Difficulty: Medium
+     * 
+     * Knowledge Point
+     * ===============
+     * 
+     * - Aggregate
+     * - If you want to modify the default way to evaluate keys in the
+     *   `Dictionary<TKey, TValue>`. Please provide correspond Comparators.
+     * 
+     * Requirement
+     * ===========
+     * 
+     * - No `for`, `foreach` or other loop keywords are allowed to use.
+     */
     public class CombineCaseInsensitiveDictionarys
     {
         #region Please modifies the code to pass the test

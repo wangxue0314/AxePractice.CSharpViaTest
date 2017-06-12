@@ -2,12 +2,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CSharpViaTest.Collections.Annotations;
 using Xunit;
 
 namespace CSharpViaTest.Collections._10_EnumerablePractices
 {
-    [SuperEasy]
+    /* 
+     * Description
+     * ===========
+     * 
+     * This test is the basic practice to manually create a IEnumerator<T>. This can
+     * help you to understand the defered nature of IEnumerable<T>, thus helps you 
+     * better understanding various query libraries such as LINQ.
+     * 
+     * Difficulty: Super Easy
+     * 
+     * Knowledge Point
+     * ===============
+     * 
+     * - An IEnumerator<T> does not necessary load all data into memory. It is just a
+     *   simple iterator for the most of the time.
+     * - GetEnumerator() just returns the IEnumerator<T> without actually iterating
+     *   over the sequence.
+     * 
+     * Requirement
+     * ===========
+     * 
+     * - No LINQ method is allowed to use in this test.
+     * - The memory efficiency should be O(1).
+     */
     public class SkippedEnumeratorPractice
     {
         class SkippedEnumerable<T> : IEnumerable<T>
@@ -31,11 +53,6 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
         }
 
         #region Please modifies the code to pass the test
-
-        // Attention
-        // 
-        // * No LINQ method is allowed to use.
-        // * The memory efficiency should be O(1)
 
         class SkippedEnumerator<T> : IEnumerator<T>
         {

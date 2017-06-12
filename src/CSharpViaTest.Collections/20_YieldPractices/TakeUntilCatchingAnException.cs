@@ -1,12 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CSharpViaTest.Collections.Annotations;
 using Xunit;
 
 namespace CSharpViaTest.Collections._20_YieldPractices
 {
-    [Medium]
+    /* 
+     * Description
+     * ===========
+     * 
+     * This test is an intresting one to demonstrate the deferred natrure of IEnumerable<T>.
+     * You have to implement a method taking element from a sequence until a unhandled
+     * exception is captured.
+     * 
+     * Difficulty: Medium
+     * 
+     * Knowledge Point
+     * ===============
+     * 
+     * - The IEnumerator<T> will call MoveNext(); before accessing the value. The resolving
+     *   operation will happen in this procedure.
+     */
     public class TakeUntilCatchingAnException
     {
         readonly int indexThatWillThrow = new Random().Next(2, 10);

@@ -1,11 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSharpViaTest.Collections.Annotations;
 using Xunit;
 
 namespace CSharpViaTest.Collections._20_YieldPractices
 {
-    [SuperEasy]
+    /* 
+     * Description
+     * ===========
+     * 
+     * This is the first test you have to complete to understand how to use "yield" keyword.
+     * 
+     * Difficulty: Super Easy
+     * 
+     * Knowledge Point
+     * ===============
+     * 
+     * - We can implicitly implement IEnumerator<T> using `yield` keyword.
+     * - You can use string constructor or `StringBuilder` to quickly create string with
+     *   repeating characters.
+     * 
+     * Requirement
+     * ===========
+     * 
+     * - No LINQ method is allowed to use in this test.
+     */
     public class YieldReturnWillCreateStateMachine
     {
         #region Please modifies the code to pass the test 
