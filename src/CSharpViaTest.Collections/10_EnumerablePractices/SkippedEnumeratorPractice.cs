@@ -81,6 +81,7 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
             public void Dispose()
             {
+                Enumerator.Dispose();
                 // throw new NotImplementedException();
             }
         }
