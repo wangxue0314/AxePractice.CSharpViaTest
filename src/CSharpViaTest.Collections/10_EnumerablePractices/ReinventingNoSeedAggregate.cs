@@ -29,7 +29,7 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
      * - You can add helper method within region. But you cannot modify code outside the
      *   region.
      */
-    static class ReinventingLinq
+    static partial class ReinventingLinq
     {
         #region Please modifies the code to pass the test
 
@@ -109,6 +109,15 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
         {
             int[] source = { 5, 6 };
             int expected = 11;
+
+            Assert.Equal(expected, source.MyAggregate((x, y) => x + y));
+        }
+
+        [Fact]
+        public void TwoElementsRefType()
+        {
+            int?[] source = {1, 2};
+            int expected = 3;
 
             Assert.Equal(expected, source.MyAggregate((x, y) => x + y));
         }
