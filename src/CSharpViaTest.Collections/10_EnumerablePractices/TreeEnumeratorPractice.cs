@@ -68,14 +68,24 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
         class TreeNodeEnumerator : IEnumerator<TreeNode>
         {
+            Stack<TreeNode> allTreeNodes;
+            TreeNode current;
             public TreeNodeEnumerator(TreeNode root)
             {
-                throw new NotImplementedException();
+                allTreeNodes = new Stack<TreeNode>();
+                allTreeNodes.Push(root);
             }
 
             public bool MoveNext()
             {
-                throw new NotImplementedException();
+                if(allTreeNodes.Count > 0){
+                    current = allTreeNodes.Pop();
+                    foreach(var node in current.Children){
+                        allTreeNodes.Push(node);
+                    }
+                    return true;
+                }
+                return false;
             }
 
             public void Reset()
@@ -83,13 +93,13 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
                 throw new NotImplementedException();
             }
 
-            public TreeNode Current { get; }
+            public TreeNode Current => current;
 
             object IEnumerator.Current => Current;
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+                allTreeNodes.Clear();
             }
         }
 
