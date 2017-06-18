@@ -65,14 +65,22 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
 
         class DistinctEnumerator<TSource> : IEnumerator<TSource>
         {
+            IEnumerator<TSource> enumerator;
+            HashSet<TSource> set;
             public DistinctEnumerator(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
             {
-                throw new NotImplementedException();
+                enumerator = source.GetEnumerator();
+                set = new HashSet<TSource>(comparer);
             }
 
             public bool MoveNext()
             {
-                throw new NotImplementedException();
+                while(enumerator.MoveNext()){
+                    if(set.Add(enumerator.Current)){
+                        return true;
+                    }
+                }
+                return false;
             }
 
             public void Reset()
@@ -80,19 +88,21 @@ namespace CSharpViaTest.Collections._10_EnumerablePractices
                 throw new NotImplementedException();
             }
 
-            public TSource Current { get { throw new NotImplementedException(); } }
+            public TSource Current { get {return enumerator.Current;} }
 
             object IEnumerator.Current => Current;
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+                enumerator.Dispose();
+                set.Clear();
             }
         }
 
         #endregion
     }
 
+    [Trait("Category","enumerable_distinct")]
     public class ReinventingDistinct
     {
         [Fact]
