@@ -36,12 +36,24 @@ namespace CSharpViaTest.Collections._20_YieldPractices
 
         public static IEnumerable<TSource> MyDistinct<TSource>(this IEnumerable<TSource> source, IEqualityComparer<TSource> comparer)
         {
-            throw new NotImplementedException();
+            if(source == null) throw new ArgumentNullException();
+            return MyDistinctCore<TSource>(source, comparer);
+        }
+
+        static IEnumerable<TSource> MyDistinctCore<TSource>(IEnumerable<TSource> source, IEqualityComparer<TSource> comparer){
+            HashSet<TSource> set = new HashSet<TSource>(comparer);
+            var enumerator = source.GetEnumerator();
+            while(enumerator.MoveNext()){
+                if(set.Add(enumerator.Current)){
+                    yield return enumerator.Current;
+                }
+            }
         }
 
         #endregion
     }
 
+    [Trait("Category","456")]
     public class ReinventingDistinct
     {
         [Fact]
