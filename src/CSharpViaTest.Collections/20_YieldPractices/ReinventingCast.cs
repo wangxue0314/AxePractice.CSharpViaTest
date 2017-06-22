@@ -30,7 +30,14 @@ namespace CSharpViaTest.Collections._20_YieldPractices
 
         public static IEnumerable<TResult> MyCast<TResult>(this IEnumerable source)
         {
-            throw new NotImplementedException();
+            if(source == null) throw new ArgumentNullException();
+            return CastToResult<TResult>(source);
+        }
+        static IEnumerable<TResult> CastToResult<TResult> (IEnumerable source){
+            var enumerator = source .GetEnumerator();
+            while(enumerator.MoveNext()){
+                yield return (TResult)(enumerator.Current);
+            }
         }
 
         #endregion
