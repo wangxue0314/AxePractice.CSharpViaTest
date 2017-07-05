@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace CSharpViaTest.OtherBCLs.HandleReflections
@@ -59,7 +61,53 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
 
         static IEnumerable<string> GetInstanceMemberInformation(Type type)
         {
-            throw new NotImplementedException();
+            return new []{$"Member information for {type.FullName}"}
+            .Concat(GetConstructors(type))
+            .Concat(GetProperties(type))
+            .Concat(GetMethods(type));
+        }
+
+        static IEnumerable<string> GetConstructors(Type type){
+            return type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+            .OrderBy(info => info.IsPublic)
+            .ThenBy(info => info.GetParameters().Length)
+            .Select(info => {
+                return $"{GetMethodAccess(info)} constructor: {GetParametes(info.GetParameters())}";
+            });
+        }
+
+        private static string GetParametes(ParameterInfo[] parameterInfos)
+        {
+            return parameterInfos.Any()
+            ? parameterInfos.Select(p => $"{p.ParameterType.Name} {p.Name}").Aggregate((p1,p2) => $"{p1}, {p2}")
+            : "no parameter";
+        }
+
+        private static string GetMethodAccess(MethodBase info)
+        {
+            return info.IsPublic ? "Public" : "Non-public";
+        }
+
+        static IEnumerable<string> GetProperties(Type type){
+            return type.GetProperties()
+            .OrderBy(prop => !prop.GetIndexParameters().Any())
+            .Select(prop => $"{GetPropType(prop)} property {prop.Name}: {GetGetterMethod(prop)}");
+        }
+
+        private static string GetGetterMethod(PropertyInfo prop)
+        {
+            return prop.GetGetMethod() == null ? "" : "Public getter.";
+        }
+
+        private static string GetPropType(PropertyInfo prop)
+        {
+            return prop.GetIndexParameters().Any() ? "Indexed" : "Normal";
+        }
+
+        static IEnumerable<string> GetMethods(Type type){
+            return type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly)
+            .Where(m => !m.IsSpecialName)
+            .Select(m => $"{GetMethodAccess(m)} method {m.Name}: {GetParametes(m.GetParameters())}");
         }
 
         #endregion
