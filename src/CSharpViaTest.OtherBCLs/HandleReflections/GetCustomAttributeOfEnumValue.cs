@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Xunit;
 
 namespace CSharpViaTest.OtherBCLs.HandleReflections
@@ -30,7 +32,18 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
 
         public static string GetDescription<T>(this T value)
         {
-            throw new NotImplementedException();
+            if(value == null){
+                throw new ArgumentNullException();
+            }
+            Type type = value.GetType();
+            if(!type.GetTypeInfo().IsEnum){
+                throw new NotSupportedException();
+            }
+
+            var field = type.GetFields(BindingFlags.Public | BindingFlags.Static).Single(info => info.Name == value.ToString());
+            return field.CustomAttributes.Any()
+            ? field.GetCustomAttribute<MyEnumDescriptionAttribute>().Description.ToString()
+            : field.Name.ToString();
         }
 
         #endregion
