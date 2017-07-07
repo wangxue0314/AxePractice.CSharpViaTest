@@ -47,7 +47,7 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
             if(instance == null) throw new ArgumentNullException(nameof(instance));
             if(methodName == null) throw new ArgumentNullException(nameof(methodName));
 
-            var method = typeof(ReflectionSample).GetMethod(methodName);
+            var method = instance.GetType().GetMethod(methodName);
             if(method == null)  throw new InvalidOperationException();
 
             return method.Invoke(instance, args);
@@ -58,7 +58,7 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
             if(instance == null) throw new ArgumentNullException(nameof(instance));
             if(propertyName == null) throw new ArgumentNullException(nameof(propertyName));
 
-            var prop = typeof(ReflectionSample).GetProperty(propertyName);
+            var prop = instance.GetType().GetProperty(propertyName);
             if(prop == null)  throw new InvalidOperationException();
 
             var setter = prop.GetSetMethod();
@@ -72,7 +72,7 @@ namespace CSharpViaTest.OtherBCLs.HandleReflections
             if(instance == null) throw new ArgumentNullException(nameof(instance));
             if(propertyName == null) throw new ArgumentNullException(nameof(propertyName));
 
-            var prop = typeof(ReflectionSample).GetProperty(propertyName);
+            var prop = instance.GetType().GetProperty(propertyName);
             object resultValue = null;
             try{
                 resultValue = prop.GetValue(instance);
