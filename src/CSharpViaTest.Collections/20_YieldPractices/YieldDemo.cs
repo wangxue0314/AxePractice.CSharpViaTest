@@ -17,7 +17,7 @@ namespace CSharpViaTest.Collections._20_YieldPractices
         {
             foreach (int value in values)
             {
-                if (value > 3)
+                if (value % 2 == 0)
                 {
                     yield return value;
                 }
@@ -29,7 +29,7 @@ namespace CSharpViaTest.Collections._20_YieldPractices
             var tmp = new List<int>();
             foreach (int value in values)
             {
-                if (value > 3)
+                if (value % 2 == 0)
                 {
                     tmp.Add(value);
                 }
@@ -41,9 +41,9 @@ namespace CSharpViaTest.Collections._20_YieldPractices
         [Fact]
         public void should_return_filtered_value()
         {
-            var values = new List<int> {1, 2, 3, 4, 5};
-            // Assert.Equal(new [] {4, 5}, GetFilterValuesByYield(values));
-            // Assert.Equal(new [] {4, 5}, GetFilterValues(values));
+            var values = new List<int> {1, 2, 3, 4, 5, 6};
+            // Assert.Equal(new [] {2, 4, 6}, GetFilterValuesByYield(values));
+            // Assert.Equal(new [] {2, 4, 6}, GetFilterValues(values));
             foreach (int value in GetFilterValuesByYield(values))
             {
                 _testOutputHelper.WriteLine(value.ToString());
