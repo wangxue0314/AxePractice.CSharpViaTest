@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # Maintain dependencies for nuget
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - "need review"
+    reviewers:
+      - "wangxue0314"
+    commit-message:
+      prefix: "nuget"
+    open-pull-requests-limit: 100
